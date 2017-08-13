@@ -1,5 +1,8 @@
 package com.t.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,15 @@ public class LeaveApplicationDAOimpl implements LeaveApplicationDAO{
 		session.saveOrUpdate(leaveApplication);
 		session.beginTransaction().commit();
 		session.close();
+	}
+
+
+	@Override
+	public List<LeaveApplication> getStudentLeaveApplication(int stuId) {
+		final String hql = "from LeaveApplication where asker_id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", stuId);
+		return query.list();
 	}
 
 }

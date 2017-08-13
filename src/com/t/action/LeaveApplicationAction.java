@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 import com.t.entity.AskType;
 import com.t.entity.LeaveApplication;
@@ -65,10 +67,27 @@ public class LeaveApplicationAction extends ActionSupport {
 		}
 		leaveApplicationService.addLeaveApplication(student, askType, startDate, endDate, reason);
 		response.getWriter().write("0");
+		
+	}
 	
+	public void getStudentLeaveApplication() throws IOException {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		Users student = userService.queryUserByName(username);
+		List<LeaveApplication> list = leaveApplicationService.getStudentLeaveApplication(student.getId());
 		
 		
-		
+		/*for (LeaveApplication leaveApplication : list) {
+			System.out.println(leaveApplication);
+		}*/
+		 
+		if (list != null && list.size() != 0) {
+			response.getWriter().write(JSON.toJSONString(list));
+		} else {
+			response.getWriter().write("");
+		}
 		
 	}
 

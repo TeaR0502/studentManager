@@ -8,14 +8,56 @@
 <script type="text/javascript" src="js/jquery-2.1.0.js"></script>
 <script type="text/javascript">
 	$(function () {
-		
+
+		//查询功能按钮
+		$("#query").click(function () {
+			$("#createForm").hide(1000);
+			//
+			$.ajax({
+						url : "Leave_getStudentLeaveApplication.html",
+						type : "post",//以post方式请求
+						data : {
+						},//传参
+						dataType : "Json",//服务器返回的数据类型
+						success : function(data) {
+							if (data == ""){
+								$("#queryForm").html("<tr>没有您的请假单</tr>");
+							} else{
+								//alert(data[0].status);
+								$("h3").html("正在查看"+data[0].asker.username+"的请假记录!");
+								var temp="<tr><td>请假类型</td><td>审批人</td><td>开始日期</td><td>结束日期</td><td>审核结果</td></tr>";
+								for (var i = 0 ; i < data.length ; i++ ){
+									var startDate = new Date();
+									startDate.setTime(data[i].startDate);
+									var endDate = new Date();
+									endDate.setTime(data[i].endDate);
+									temp += "<tr><td>"
+									+ data[i].askType.askTyep+"</td>"
+									+ "<td>" +data[i].teacher+"</td>"
+									+	"<td>" + startDate.toLocaleDateString() + "</td>"
+									+	"<td>" + endDate.toLocaleDateString() + "</td>"
+									+	"<td>" + data[i].status + "</td></tr>";
+								}
+								$("#queryForm").html(temp);
+								
+								$("#queryForm").show(2000);
+							}
+						},
+						error : function(e) {
+							alert("错误");
+						}
+					});
+			//
+			
+		});
+
+		//提交按钮功能绑定
 		$("#submit").click(function () {
 			//
 			$.ajax({
 						url : "Leave_add.html",
 						type : "post",//以post方式请求
 						data : {
-							"askername":$("#askusername").val(),
 							"type":$("#AskType").val(),
 							"startDate":$("#startDate").val(),
 							"endDate":$("#endDate").val(),
@@ -37,6 +79,7 @@
 
 		//获取订单的基本信息
 		$("#AskForLeave").click(function () {
+			$("#queryForm").hide(1000);
 			//
 			$.ajax({
 						url : "User_queryByName.html",
@@ -46,6 +89,7 @@
 						dataType : "Json",//服务器返回的数据类型
 						success : function(data) {
 							//alert("123");
+							$("h3").html(data.username+"正在申请请假!");
 							$("#askusername").val(data.realname);
 							$("#checkusername").val(data.teacher.username);
 						},
@@ -88,6 +132,7 @@
 			$("#endDate").val("");
 		});
 		$("#createForm").hide();
+		$("#queryForm").hide();
 	});
 </script>
 </head>
@@ -132,6 +177,7 @@
 				<td><input type="button" value="提交申请" id="submit"/></td>
 			</tr>
 		</table>
+		<table id="queryForm" border="1px"></table>
 	</div>
 	
 </body>
