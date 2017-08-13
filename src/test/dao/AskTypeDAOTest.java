@@ -28,9 +28,15 @@ public class AskTypeDAOTest {
 	@Test
 	public void testAddType() {
 		AskTypeDAO askTypeDAO = bf.getBean(AskTypeDAO.class);
-		AskType askType = new AskType();
-		askType.setAskTyep("婚假");
-		askTypeDAO.addType(askType);
+		AskType askType1 = new AskType();
+		askType1.setAskTyep("事假");
+		askTypeDAO.addType(askType1);
+		/*AskType askType2 = new AskType();
+		askType2.setAskTyep("病假");
+		AskType askType3 = new AskType();
+		askType3.setAskTyep("事假");
 		
+		askTypeDAO.addType(askType2);
+		askTypeDAO.addType(askType3);*/
 	}
 }

@@ -17,8 +17,10 @@ public class LeaveApplication {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LeaveApplication_ID_seq")
 	@SequenceGenerator(name = "LeaveApplication_ID_seq", sequenceName = "LeaveApplication_ID_seq", allocationSize = 1, initialValue = 1)
 	private Integer id;
+	
 	@ManyToOne
 	private Users asker;
+	
 	private String teacher;
 	@ManyToOne
 	private AskType askType;
@@ -31,7 +33,7 @@ public class LeaveApplication {
 		return teacher;
 	}
 	public void setTeacher(String teacher) {
-		this.teacher = asker.getTeacher().getUsername();
+		this.teacher = teacher;
 	}
 	public Integer getId() {
 		return id;
@@ -77,7 +79,7 @@ public class LeaveApplication {
 	}
 	@Override
 	public String toString() {
-		return "LeaveApplication [id=" + id + ", asker=" + asker.getUsername() + ", teacher=" + asker.getTeacher().getUsername() + ", askType=" + askType
+		return "LeaveApplication [id=" + id + ", asker=" + asker + ", teacher=" + teacher + ", askType=" + askType
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", reason=" + reason + ", status=" + status
 				+ "]";
 	}

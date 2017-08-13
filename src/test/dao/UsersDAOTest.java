@@ -27,14 +27,16 @@ public class UsersDAOTest {
 	public void testAddStudent() {
 		UsersDAO usersDAO = bf.getBean(UsersDAO.class);
 		Users teacher = new  Users();
-		teacher.setId(3);
-		teacher.setUsername("teacher2");
-		teacher.setRealname("teacher");
+		teacher.setUsername("T0502");
+		teacher.setRealname("朱大帅");
+		teacher.setPassword("123456");
 		teacher.setJob("老师");
+		
 		
 		Users student = new  Users();
 		student.setUsername("0502");
 		student.setRealname("周乾睿");
+		student.setPassword("123456");
 		student.setJob("学生");
 		student.setTeacher(teacher);
 		usersDAO.addStudent(student);
@@ -45,8 +47,9 @@ public class UsersDAOTest {
 	public void testAddTeacher() {
 		UsersDAO usersDAO = bf.getBean(UsersDAO.class);
 		Users teacher = new  Users();
-		teacher.setUsername("teacher2");
-		teacher.setRealname("teacher");
+		teacher.setUsername("T0502");
+		teacher.setRealname("朱大帅");
+		teacher.setPassword("123456");
 		teacher.setJob("老师");
 		
 		Users student = new  Users();

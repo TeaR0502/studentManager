@@ -25,16 +25,7 @@ public class Users {
 	private String job;
 	@ManyToOne
 	private Users teacher;
-	@OneToMany(targetEntity=LeaveApplication.class)
-	private List<LeaveApplication> list = new LinkedList<>();
-
-	public List<LeaveApplication> getList() {
-		return list;
-	}
-
-	public void setList(List<LeaveApplication> list) {
-		this.list = list;
-	}
+	
 
 	public String getPassword() {
 		return password;
@@ -87,7 +78,7 @@ public class Users {
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", realname=" + realname
-				+ ", job=" + job + ", teacher=" + teacher + ", list=" + list + "]";
+				+ ", job=" + job + ", teacher=" + teacher + "]";
 	}
 
 }

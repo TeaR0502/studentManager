@@ -20,6 +20,7 @@
 						},//传参
 						dataType : "Json",//服务器返回的数据类型
 						success : function(data) {
+						//	alert(data);
 							if (data == ""){
 								$("#queryForm").html("<tr>没有您的请假单</tr>");
 							} else{
@@ -44,7 +45,7 @@
 							}
 						},
 						error : function(e) {
-							alert("错误");
+							$("#queryForm").html("<tr>没有您的请假单</tr>");
 						}
 					});
 			//
@@ -70,7 +71,7 @@
 							}
 						},
 						error : function(e) {
-							alert("错误");
+							$("h3").html("提交失败!");
 						}
 					});
 
@@ -91,7 +92,7 @@
 							//alert("123");
 							$("h3").html(data.username+"正在申请请假!");
 							$("#askusername").val(data.realname);
-							$("#checkusername").val(data.teacher.username);
+							$("#checkusername").val(data.teacher.realname);
 						},
 						error : function(e) {
 							alert("错误");
@@ -138,7 +139,7 @@
 </head>
 <body>
 	<div align="center">
-		<h1>Welcome!<span id="username"></span></h1>	
+		<h1>Welcome!student!</h1>	
 		<h3></h3>
 		<p><a href="exit.html">退出</a> </p>
 		<input type="button" value="申请请假" id="AskForLeave">

@@ -12,5 +12,4 @@
 		<action name="exit" method="exit" class="com.t.action.UserAction" ></action>
 	</package>
 	<constant name="struts.action.extension" value="html"></constant>
-	<constant name="struts.devMode" value="true"></constant>
 </struts>

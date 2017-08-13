@@ -24,12 +24,13 @@ public class LeaveApplicationServiceimpl implements LeaveApplicationService{
 		LeaveApplication leaveApplication = new LeaveApplication();
 		leaveApplication.setAsker(student);
 		leaveApplication.setTeacher(student.getTeacher().getRealname());	
+		System.out.println(student.getTeacher().getRealname());
 		leaveApplication.setAskType(askType);
 		leaveApplication.setStartDate(startDate);
 		leaveApplication.setEndDate(endDate);
 		leaveApplication.setReason(reason);
 		leaveApplication.setStatus("未审核");
-		//System.out.println(leaveApplication);
+		System.out.println(leaveApplication);
 		leaveApplicationDAO.addLeaveApplication(leaveApplication);
 	}
 
@@ -38,6 +39,19 @@ public class LeaveApplicationServiceimpl implements LeaveApplicationService{
 	public List<LeaveApplication> getStudentLeaveApplication(int stuId) {
 		// TODO Auto-generated method stub
 		return leaveApplicationDAO.getStudentLeaveApplication(stuId);
+	}
+
+
+	@Override
+	public List<LeaveApplication> getTeacherLeaveApplication(String teacher) {
+		// TODO Auto-generated method stub
+		return leaveApplicationDAO.getTeacherLeaveApplication(teacher);
+	}
+
+
+	@Override
+	public void updateLeaveApplication(String status, int id) {
+		leaveApplicationDAO.updateLeaveApplication(status, id);
 	}
 
 }

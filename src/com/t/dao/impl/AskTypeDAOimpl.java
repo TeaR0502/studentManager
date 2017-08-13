@@ -22,7 +22,7 @@ public class AskTypeDAOimpl implements AskTypeDAO {
 
 	@Override
 	public void addType(AskType askType) {
-		session.saveOrUpdate(askType);
+		session.save(askType);
 		session.beginTransaction().commit();
 		session.close();
 	}

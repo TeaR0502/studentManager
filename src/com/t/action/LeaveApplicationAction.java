@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.opensymphony.xwork2.ActionSupport;
 import com.t.entity.AskType;
 import com.t.entity.LeaveApplication;
@@ -37,6 +38,18 @@ public class LeaveApplicationAction extends ActionSupport {
 	@Autowired
 	private LeaveApplicationService leaveApplicationService;
 	
+	//审批请假单
+		public void update() throws IOException{
+			HttpServletRequest request = ServletActionContext.getRequest();
+			HttpServletResponse response = ServletActionContext.getResponse();
+			String status = request.getParameter("status");
+			Integer id = Integer.parseInt(request.getParameter("id"));
+			System.out.println(status+":"+id);
+			leaveApplicationService.updateLeaveApplication(status, id);
+			response.getWriter().write("0");
+	}
+	
+	//添加请假单
 	public void add() throws IOException {
 		System.out.println("进入LeaveApplication_add");
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -70,25 +83,54 @@ public class LeaveApplicationAction extends ActionSupport {
 		
 	}
 	
+	//学生查询请假单
 	public void getStudentLeaveApplication() throws IOException {
+//		System.out.println("进入getStudentLeaveApplication");
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		Users student = userService.queryUserByName(username);
+//		System.out.println(student);
 		List<LeaveApplication> list = leaveApplicationService.getStudentLeaveApplication(student.getId());
 		
-		
-		/*for (LeaveApplication leaveApplication : list) {
-			System.out.println(leaveApplication);
-		}*/
-		 
+//		System.out.println("========请假记录======]");
+//		for (LeaveApplication leaveApplication : list) {
+//			System.out.println(leaveApplication);
+//		}	 
+//		System.out.println("========请假记录======]");
 		if (list != null && list.size() != 0) {
-			response.getWriter().write(JSON.toJSONString(list));
+			response.getWriter().write(JSON.toJSONString(list,SerializerFeature.DisableCircularReferenceDetect));
 		} else {
 			response.getWriter().write("");
 		}
 		
 	}
+	
+	//老师查询请假单
+	public void getTeacherLeaveApplication() throws IOException {
+//		System.out.println("进入getTeacherLeaveApplication");
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		Users teacher = userService.queryUserByName(username);
+//		System.out.println("识别当前身份:"+teacher);
+		List<LeaveApplication> list = leaveApplicationService.getTeacherLeaveApplication(teacher.getRealname());
+		
+//		for (LeaveApplication leaveApplication : list) {
+//			System.out.println(leaveApplication);
+//		}
+		 
+		if (list != null && list.size() != 0) {
+//			System.out.println(JSON.toJSONString(list));
+			response.getWriter().write(JSON.toJSONString(list,SerializerFeature.DisableCircularReferenceDetect));
+		} else {
+			response.getWriter().write("");
+		}
+		
+	}
+	
+	
 
 }

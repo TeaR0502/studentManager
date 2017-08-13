@@ -8,7 +8,18 @@ import com.t.entity.LeaveApplication;
 
 public interface LeaveApplicationDAO {
 	
-	
+	/**
+	 * update a LeaveApplication
+	 * @param status
+	 * @param idf
+	 */
+	void updateLeaveApplication(String status ,int id) ;
+	/**
+	 * query all LeaveApplication record 
+	 * @param tId
+	 * @return
+	 */
+	List<LeaveApplication> getTeacherLeaveApplication(String teacher);
 	
 	/**
 	 * create a new LeaveApplication Record
