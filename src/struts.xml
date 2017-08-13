@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- namespace="/"表示从根目录下查找 -->
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="User_*" method="{1}" class="com.t.action.UserAction" ></action>
+		<action name="Type_*" method="{1}" class="com.t.action.AskTypeAction" ></action>
+		<action name="Leave_*" method="{1}" class="com.t.action.LeaveApplicationAction" ></action>
+		<action name="welcome" method="loginSuccess" class="com.t.action.UserAction" ></action>
+		<action name="exit" method="exit" class="com.t.action.UserAction" ></action>
+	</package>
+	<constant name="struts.action.extension" value="html"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+</struts>
